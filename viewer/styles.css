@@ -1,0 +1,273 @@
+/* ── Reset & base ──────────────────────────────────────────────────────── */
+:root {
+  --bg: #f5f2ed;
+  --surface: #ffffff;
+  --text: #2c2c2c;
+  --text-soft: #6b6b6b;
+  --accent-pb: #d4a017;
+  --success: #4a8b3a;
+  --danger: #b04848;
+  --border: #e0dcd4;
+  --nav-bg: #2c2c2c;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── Sticky nav ────────────────────────────────────────────────────────── */
+
+#top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.tabs {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 13px 14px 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.12s;
+}
+.tab:hover { color: rgba(255,255,255,0.85); }
+.tab.active {
+  color: var(--bg);
+  border-bottom-color: var(--accent-pb);
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+  padding: 7px 0 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+.filters label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.filters input[type="checkbox"] { accent-color: var(--accent-pb); cursor: pointer; }
+
+/* ── Main content ──────────────────────────────────────────────────────── */
+
+#main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 56px;
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Geral — athlete card ──────────────────────────────────────────────── */
+
+.athlete-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 20px 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.athlete-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 5px;
+}
+.athlete-meta { font-size: 14px; color: var(--text-soft); }
+
+/* ── Section & sub-headings ────────────────────────────────────────────── */
+
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.sub-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin: 24px 0 10px;
+}
+
+/* ── Cards grid ────────────────────────────────────────────────────────── */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+@media (min-width: 720px) {
+  .cards-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.dist-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px 16px 12px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.card-dist {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-bottom: 6px;
+}
+
+.card-pb-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1;
+}
+.pb-time {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--text);
+}
+.pb-star { font-size: 18px; color: var(--accent-pb); }
+
+.card-pb-date {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+.card-last {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+.card-last strong { color: var(--text); font-weight: 500; }
+
+.delta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+}
+.delta.danger  { color: var(--danger); }
+.delta.success { color: var(--success); }
+.delta.neutral { color: var(--text-soft); }
+
+.card-spark { line-height: 0; }
+
+/* ── Tables ────────────────────────────────────────────────────────────── */
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  margin-bottom: 4px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.data-table th {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  cursor: default;
+}
+.data-table th[title] { cursor: help; border-bottom: 1px dashed var(--border); }
+.data-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--bg); }
+
+.row-dsq { opacity: 0.45; }
+
+/* ── Colour helpers ────────────────────────────────────────────────────── */
+
+.c-success { color: var(--success); }
+.c-danger  { color: var(--danger); }
+.c-soft    { color: var(--text-soft); }
+.c-gold    { color: var(--accent-pb); }
+
+/* ── Badges ────────────────────────────────────────────────────────────── */
+
+.badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 2px;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.badge-dsq { background: var(--danger); color: #fff; }
+.badge-est { background: var(--border); color: var(--text-soft); }
+
+/* ── Empty state ───────────────────────────────────────────────────────── */
+
+.empty {
+  color: var(--text-soft);
+  font-style: italic;
+  padding: 12px 0;
+  font-size: 13px;
+}

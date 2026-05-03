@@ -1,0 +1,8 @@
+# Dados derivados — regenerados por scripts/compute.py
+data/derived/
+
+# macOS
+.DS_Store
+
+# Logs de auditoria SecurityBench
+sb_audit_*.log

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodrigo Murta — Natação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav id="top-nav">
+    <div class="nav-inner">
+      <div class="tabs">
+        <button class="tab active" data-tab="geral">Geral</button>
+        <button class="tab" data-tab="livre">Livre</button>
+        <button class="tab" data-tab="costas">Costas</button>
+        <button class="tab" data-tab="brucos">Bruços</button>
+        <button class="tab" data-tab="mariposa">Mariposa</button>
+        <button class="tab" data-tab="estilos">Estilos</button>
+      </div>
+      <div class="filters">
+        <label><input type="checkbox" id="toggle-relay"> Incluir estafetas</label>
+        <label><input type="checkbox" id="toggle-estimated"> Incluir estimados</label>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section id="tab-geral"    class="tab-content active"></section>
+    <section id="tab-livre"    class="tab-content"></section>
+    <section id="tab-costas"   class="tab-content"></section>
+    <section id="tab-brucos"   class="tab-content"></section>
+    <section id="tab-mariposa" class="tab-content"></section>
+    <section id="tab-estilos"  class="tab-content"></section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="charts.js"></script>
+</body>
+</html>
