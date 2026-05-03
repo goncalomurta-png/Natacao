@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inserir Competição — Rodrigo Murta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand: #f5f2ed;
+      --sand2: #ece8e1;
+      --charcoal: #2c2c2c;
+      --mid: #666;
+      --gold: #d4a017;
+      --green: #4a7c59;
+      --red: #c0392b;
+      --border: #d4cfc8;
+      --radius: 6px;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--sand);
+      color: var(--charcoal);
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+      font-size: 15px;
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      margin-bottom: 4px;
+    }
+
+    .subtitle { color: var(--mid); font-size: .875rem; margin-bottom: 24px; }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+
+    .row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+
+    .field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 140px; }
+    .field label { font-size: .8rem; font-weight: 500; color: var(--mid); text-transform: uppercase; letter-spacing: .04em; }
+    .field input, .field select {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 10px;
+      font-family: 'Barlow', sans-serif;
+      font-size: .95rem;
+      background: var(--sand);
+      color: var(--charcoal);
+      width: 100%;
+    }
+    .field input:focus, .field select:focus {
+      outline: 2px solid var(--gold);
+      background: white;
+    }
+    .field input.error { border-color: var(--red); background: #fdf2f1; }
+    .field input.ok { border-color: var(--green); }
+
+    .hint { font-size: .75rem; color: var(--mid); }
+
+    /* Events */
+    .event-block {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin-bottom: 10px;
+      background: var(--sand);
+      position: relative;
+    }
+    .event-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .event-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--gold);
+    }
+    .btn-remove {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: .8rem;
+      color: var(--mid);
+      cursor: pointer;
+    }
+    .btn-remove:hover { border-color: var(--red); color: var(--red); }
+
+    .splits-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
+    .splits-row .field { min-width: 90px; max-width: 120px; }
+    .split-sum { font-size: .8rem; padding-top: 20px; white-space: nowrap; }
+    .split-sum.ok { color: var(--green); }
+    .split-sum.warn { color: var(--red); }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-add {
+      background: none;
+      border: 1px dashed var(--border);
+      color: var(--mid);
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+    .btn-add:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-generate { background: var(--charcoal); color: var(--sand); }
+    .btn-generate:hover { background: var(--gold); color: var(--charcoal); }
+    .btn-copy { background: var(--green); color: white; margin-left: 8px; }
+    .btn-copy:hover { opacity: .85; }
+    .btn-save { background: var(--gold); color: var(--charcoal); margin-left: 8px; }
+    .btn-save:hover { opacity: .85; }
+
+    #output-section { display: none; }
+    #output-section.visible { display: block; }
+
+    pre#output {
+      background: #1a1a1a;
+      color: #e8e4de;
+      border-radius: var(--radius);
+      padding: 14px;
+      font-size: .8rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .instructions {
+      background: #fffbf0;
+      border: 1px solid #e8d88a;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+    .instructions ol { padding-left: 18px; }
+    .instructions code {
+      background: #f0ece3;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-family: monospace;
+      font-size: .82rem;
+    }
+
+    .errors {
+      background: #fdf2f1;
+      border: 1px solid var(--red);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: .85rem;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .errors ul { padding-left: 16px; }
+
+    @media (max-width: 500px) {
+      .row { flex-direction: column; }
+      .splits-row .field { min-width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Inserir Competição</h1>
+<p class="subtitle">Gera o bloco JSON para colar em <code>competitions.json</code></p>
+
+<div class="card">
+  <div class="card-title">Competição</div>
+  <div class="row">
+    <div class="field">
+      <label>Data</label>
+      <input type="date" id="comp-date" required>
+    </div>
+    <div class="field" style="flex:2; min-width:200px;">
+      <label>Nome</label>
+      <input type="text" id="comp-name" placeholder="ex: V Campeonato Naval do Funchal" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Local</label>
+      <input type="text" id="comp-location" placeholder="ex: Funchal" required>
+    </div>
+    <div class="field" style="max-width:160px;">
+      <label>Piscina</label>
+      <select id="comp-pool">
+        <option value="SC25">SC25 (25 m)</option>
+        <option value="LC50">LC50 (50 m)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">Eventos</div>
+  <div id="events-container"></div>
+  <button class="btn btn-add" onclick="addEvent()">+ Adicionar evento</button>
+</div>
+
+<div id="errors-box" class="errors" style="display:none"><ul id="errors-list"></ul></div>
+
+<div style="margin-bottom:16px;">
+  <button class="btn btn-generate" onclick="generate()">Gerar JSON</button>
+</div>
+
+<div id="output-section">
+  <pre id="output"></pre>
+  <button class="btn btn-copy" onclick="copyOutput()">Copiar JSON</button>
+  <button class="btn btn-save" onclick="saveFile()" id="btn-save">⬇ Guardar ficheiro</button>
+  <div class="instructions" style="margin-top:14px;">
+    <strong>Passo 1 — Guardar (Fator 1):</strong>
+    <ol>
+      <li>Clica <strong>"⬇ Guardar ficheiro"</strong></li>
+      <li>iOS → Files → iCloud Drive → Github → Natacao → <strong>data → pending → review</strong></li>
+    </ol>
+    <div style="margin-top:8px; padding-top:8px; border-top:1px solid #e8d88a;">
+    <strong>Passo 2 — Aprovar (Fator 2):</strong><br>
+    Corre o Shortcut <strong>"Aprovar Entrada Natação"</strong> no iPhone → selecciona a entrada → confirma.<br>
+    O Mac processa tudo automaticamente após aprovação.
+    </div>
+  </div>
+</div>
+
+<script>
+let eventCount = 0;
+
+const DISCIPLINES = [
+  { value: 'livre',    label: 'Livre' },
+  { value: 'costas',   label: 'Costas' },
+  { value: 'brucos',   label: 'Bruços' },
+  { value: 'mariposa', label: 'Mariposa' },
+  { value: 'estilos',  label: 'Estilos' },
+  { value: 'estafeta_livre', label: 'Estafeta Livre (parcial)' },
+];
+
+const DISTANCES = [50, 100, 200, 400, 800, 1500];
+
+function parseTime(str) {
+  if (!str || !str.trim()) return null;
+  str = str.trim().toLowerCase().replace(/\s+/g, '');
+
+  // 1m15s | 1m15.32s | 1m15 | 1m15.3
+  const mFmt = str.match(/^(\d+)m(\d+)(?:\.(\d{1,2}))?s?$/);
+  if (mFmt) {
+    const mins = parseInt(mFmt[1]);
+    const secs = parseInt(mFmt[2]);
+    const cents = mFmt[3] ? (mFmt[3].length === 1 ? parseInt(mFmt[3]) * 10 : parseInt(mFmt[3])) : 0;
+    return mins * 60 + secs + cents / 100;
+  }
+
+  // 1:15.32 | 1:15 | 40.32 | 40
+  const cFmt = str.match(/^(?:(\d+):)?(\d+)(?:\.(\d{1,2}))?$/);
+  if (cFmt) {
+    const mins = parseInt(cFmt[1] || '0');
+    const secs = parseInt(cFmt[2]);
+    const cents = cFmt[3] ? (cFmt[3].length === 1 ? parseInt(cFmt[3]) * 10 : parseInt(cFmt[3])) : 0;
+    return mins * 60 + secs + cents / 100;
+  }
+
+  return null;
+}
+
+function formatTime(s) {
+  if (s === null) return '?';
+  const m = Math.floor(s / 60);
+  const sec = (s - m * 60).toFixed(2).padStart(5, '0');
+  return m > 0 ? `${m}:${sec}` : `${sec}`;
+}
+
+function slugify(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_|_$/g, '');
+}
+
+function numSplits(dist, gran) {
+  return Math.floor(dist / gran);
+}
+
+function addEvent() {
+  eventCount++;
+  const id = eventCount;
+  const container = document.getElementById('events-container');
+  const div = document.createElement('div');
+  div.className = 'event-block';
+  div.id = `event-${id}`;
+
+  div.innerHTML = `
+    <div class="event-header">
+      <span class="event-label">Evento ${id}</span>
+      <button class="btn-remove" onclick="removeEvent(${id})">remover</button>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Técnica</label>
+        <select id="disc-${id}" onchange="updateSplits(${id})">
+          ${DISCIPLINES.map(d => `<option value="${d.value}">${d.label}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field" style="max-width:110px;">
+        <label>Distância (m)</label>
+        <select id="dist-${id}" onchange="updateSplits(${id})">
+          ${DISTANCES.map(d => `<option value="${d}">${d}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field" style="max-width:120px;">
+        <label>Tempo final</label>
+        <input type="text" id="time-${id}" placeholder="1:22.21" oninput="updateSplits(${id})">
+        <span class="hint">mm:ss.cc</span>
+      </div>
+      <div class="field" style="max-width:80px;">
+        <label>Lugar</label>
+        <input type="number" id="rank-${id}" placeholder="—" min="1">
+      </div>
+      <div class="field" style="max-width:130px;">
+        <label>Parciais</label>
+        <select id="gran-${id}" onchange="updateSplits(${id})">
+          <option value="50">50m (oficiais)</option>
+          <option value="25">25m (manual)</option>
+        </select>
+      </div>
+      <div class="field" style="max-width:150px;">
+        <label>Modo de entrada</label>
+        <select id="mode-${id}" onchange="updateSplits(${id})">
+          <option value="inc">Incrementais</option>
+          <option value="acc">Acumulados (ao vivo)</option>
+        </select>
+      </div>
+    </div>
+    <div class="splits-row" id="splits-row-${id}"></div>
+    <div class="row" style="margin-top:8px;">
+      <div class="field">
+        <label>Notas (opcional)</label>
+        <input type="text" id="notes-${id}" placeholder="">
+      </div>
+    </div>
+  `;
+
+  container.appendChild(div);
+  updateSplits(id);
+}
+
+function removeEvent(id) {
+  document.getElementById(`event-${id}`).remove();
+}
+
+function updateSplits(id) {
+  const dist = parseInt(document.getElementById(`dist-${id}`).value);
+  const gran = parseInt(document.getElementById(`gran-${id}`).value);
+  const mode = document.getElementById(`mode-${id}`).value;
+  const n = numSplits(dist, gran);
+  const row = document.getElementById(`splits-row-${id}`);
+  if (!row) return;
+
+  const existing = [];
+  for (let i = 1; i <= 60; i++) {
+    const el = document.getElementById(`split-${id}-${i}`);
+    if (el) existing.push(el.value);
+    else break;
+  }
+
+  if (n <= 1) { row.innerHTML = ''; return; }
+
+  const isAcc = mode === 'acc';
+  const modeLabel = isAcc ? 'Acumulados ao vivo — cronómetro a correr' : (gran === 50 ? 'Incrementais — oficiais' : 'Incrementais — manual');
+  const placeholder = isAcc ? '40.00' : '19.50';
+
+  let html = `<div class="card-title" style="width:100%;font-size:.75rem;margin-bottom:4px;">${modeLabel} (mm:ss.cc)</div>`;
+  for (let i = 1; i <= n; i++) {
+    const label = isAcc ? `aos ${i * gran}m` : `${(i-1)*gran}–${i*gran}m`;
+    const val = existing[i-1] || '';
+    html += `<div class="field" style="min-width:80px;max-width:110px;"><label>${label}</label><input type="text" id="split-${id}-${i}" placeholder="${placeholder}" value="${val}" oninput="checkSplits(${id})"></div>`;
+  }
+  html += `<div class="split-sum" id="split-sum-${id}"></div>`;
+  row.innerHTML = html;
+  checkSplits(id);
+}
+
+function checkSplits(id) {
+  const dist = parseInt(document.getElementById(`dist-${id}`).value);
+  const gran = parseInt(document.getElementById(`gran-${id}`).value);
+  const mode = document.getElementById(`mode-${id}`).value;
+  const n = numSplits(dist, gran);
+  const timeSec = parseTime(document.getElementById(`time-${id}`).value);
+  const sumEl = document.getElementById(`split-sum-${id}`);
+  if (!sumEl) return;
+
+  const isAcc = mode === 'acc';
+  const vals = [];
+  let allFilled = true;
+
+  for (let i = 1; i <= n; i++) {
+    const el = document.getElementById(`split-${id}-${i}`);
+    if (!el) continue;
+    const v = parseTime(el.value);
+    if (v === null) { allFilled = false; el.classList.remove('ok','error'); vals.push(null); continue; }
+    vals.push(v);
+    // validate order for accumulated
+    if (isAcc && vals.length >= 2) {
+      const prev = vals[vals.length - 2];
+      if (prev !== null && v <= prev) {
+        el.classList.add('error'); el.classList.remove('ok');
+      } else {
+        el.classList.remove('error'); el.classList.add('ok');
+      }
+    } else {
+      el.classList.remove('error'); el.classList.add('ok');
+    }
+  }
+
+  if (!allFilled || timeSec === null) { sumEl.textContent = ''; return; }
+
+  if (isAcc) {
+    const last = vals[vals.length - 1];
+    const diff = Math.abs(last - timeSec);
+    if (diff <= 0.05) {
+      sumEl.textContent = `Último acumulado ${formatTime(last)} ≈ tempo total ✓`;
+      sumEl.className = 'split-sum ok';
+    } else {
+      sumEl.textContent = `Último acumulado ${formatTime(last)} ≠ ${formatTime(timeSec)} (Δ${diff.toFixed(2)}s)`;
+      sumEl.className = 'split-sum warn';
+    }
+  } else {
+    const sum = vals.reduce((a, b) => a + b, 0);
+    const diff = Math.abs(sum - timeSec);
+    if (diff <= 0.05) {
+      sumEl.textContent = `∑ ${formatTime(sum)} ✓`;
+      sumEl.className = 'split-sum ok';
+    } else {
+      sumEl.textContent = `∑ ${formatTime(sum)} ≠ ${formatTime(timeSec)} (Δ${diff.toFixed(2)}s)`;
+      sumEl.className = 'split-sum warn';
+    }
+  }
+}
+
+function getEventIds() {
+  const blocks = document.querySelectorAll('.event-block');
+  return Array.from(blocks).map(b => parseInt(b.id.replace('event-', '')));
+}
+
+function generate() {
+  const errors = [];
+
+  const date = document.getElementById('comp-date').value;
+  const name = document.getElementById('comp-name').value.trim();
+  const location = document.getElementById('comp-location').value.trim();
+  const pool = document.getElementById('comp-pool').value;
+
+  if (!date) errors.push('Data da competição em falta');
+  if (!name) errors.push('Nome da competição em falta');
+  if (!location) errors.push('Local em falta');
+
+  const ids = getEventIds();
+  if (ids.length === 0) errors.push('Adiciona pelo menos um evento');
+
+  const events = [];
+
+  for (const id of ids) {
+    const disc = document.getElementById(`disc-${id}`).value;
+    const dist = parseInt(document.getElementById(`dist-${id}`).value);
+    const gran = parseInt(document.getElementById(`gran-${id}`).value);
+    const mode = document.getElementById(`mode-${id}`).value;
+    const timeStr = document.getElementById(`time-${id}`).value;
+    const rankStr = document.getElementById(`rank-${id}`).value;
+    const notes = document.getElementById(`notes-${id}`).value.trim();
+
+    const timeSec = parseTime(timeStr);
+    if (timeSec === null) { errors.push(`Evento ${id}: tempo inválido ("${timeStr}")`); continue; }
+
+    const n = numSplits(dist, gran);
+    const rawVals = [];
+    for (let i = 1; i <= n; i++) {
+      const el = document.getElementById(`split-${id}-${i}`);
+      if (!el) break;
+      const v = parseTime(el.value);
+      if (v !== null) rawVals.push(v);
+    }
+
+    // converter acumulados → incrementais
+    let splits = [];
+    if (rawVals.length === n) {
+      if (mode === 'acc') {
+        splits.push(Math.round(rawVals[0] * 100) / 100);
+        for (let i = 1; i < rawVals.length; i++) {
+          splits.push(Math.round((rawVals[i] - rawVals[i-1]) * 100) / 100);
+        }
+        // validar: último acumulado ≈ tempo total
+        const diff = Math.abs(rawVals[rawVals.length - 1] - timeSec);
+        if (diff > 0.05) {
+          errors.push(`Evento ${id} (${disc} ${dist}m): último acumulado ${formatTime(rawVals[rawVals.length-1])} ≠ tempo ${formatTime(timeSec)} (Δ${diff.toFixed(2)}s)`);
+        }
+      } else {
+        splits = rawVals.map(v => Math.round(v * 100) / 100);
+        const sum = splits.reduce((a, b) => a + b, 0);
+        const diff = Math.abs(sum - timeSec);
+        if (diff > 0.05) {
+          errors.push(`Evento ${id} (${disc} ${dist}m): ∑ parciais ${formatTime(sum)} ≠ tempo ${formatTime(timeSec)} (Δ${diff.toFixed(2)}s)`);
+        }
+      }
+    }
+
+    events.push({
+      discipline: disc,
+      distance_m: dist,
+      time_s: Math.round(timeSec * 100) / 100,
+      splits_s: splits.map(s => Math.round(s * 100) / 100),
+      rank: rankStr ? parseInt(rankStr) : null,
+      notes: notes
+    });
+  }
+
+  const errBox = document.getElementById('errors-box');
+  const errList = document.getElementById('errors-list');
+  if (errors.length > 0) {
+    errList.innerHTML = errors.map(e => `<li>${e}</li>`).join('');
+    errBox.style.display = 'block';
+    document.getElementById('output-section').classList.remove('visible');
+    return;
+  }
+  errBox.style.display = 'none';
+
+  const compId = `${date}_${slugify(name)}`;
+
+  const obj = {
+    id: compId,
+    date: date,
+    name: name,
+    location: location,
+    pool: pool,
+    events: events
+  };
+
+  const json = JSON.stringify(obj, null, 2);
+  document.getElementById('output').textContent = json;
+  document.getElementById('output-section').classList.add('visible');
+  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyOutput() {
+  const text = document.getElementById('output').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const orig = btn.textContent;
+    btn.textContent = 'Copiado ✓';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+function saveFile() {
+  const text = document.getElementById('output').textContent;
+  if (!text) return;
+  let obj;
+  try { obj = JSON.parse(text); } catch { return; }
+  const filename = `entrada_${obj.id}.json`;
+  const blob = new Blob([text], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Inicia com um evento
+addEvent();
+</script>
+</body>
+</html>

@@ -19,9 +19,9 @@ window.SWIM_DATA = {
         "competition_id": "2025-03-29_festival_cadetes_25"
       },
       "100": {
-        "time_s": 88.06,
-        "date": "2025-10-25",
-        "competition_id": "2025-10-25_ilha_verde_25"
+        "time_s": 82.21,
+        "date": "2026-04-30",
+        "competition_id": "2026-04-30_naval_funchal"
       },
       "400": {
         "time_s": 413.08,
@@ -31,9 +31,9 @@ window.SWIM_DATA = {
     },
     "estilos": {
       "100": {
-        "time_s": 105.27,
-        "date": "2025-03-29",
-        "competition_id": "2025-03-29_festival_cadetes_25"
+        "time_s": 103.0,
+        "date": "2026-04-30",
+        "competition_id": "2026-04-30_naval_funchal"
       },
       "200": {
         "time_s": 230.82,
@@ -125,7 +125,7 @@ window.SWIM_DATA = {
             48.07,
             51.18
           ],
-          "delta_pct_vs_pb": 12.71
+          "delta_pct_vs_pb": 20.73
         },
         {
           "date": "2024-03-23",
@@ -136,7 +136,7 @@ window.SWIM_DATA = {
             43.56,
             51.88
           ],
-          "delta_pct_vs_pb": 8.38
+          "delta_pct_vs_pb": 16.09
         },
         {
           "date": "2024-10-19",
@@ -146,7 +146,7 @@ window.SWIM_DATA = {
             43.16,
             49.76
           ],
-          "delta_pct_vs_pb": 5.52
+          "delta_pct_vs_pb": 13.03
         },
         {
           "date": "2024-12-07",
@@ -156,7 +156,7 @@ window.SWIM_DATA = {
             42.81,
             48.77
           ],
-          "delta_pct_vs_pb": 4.0
+          "delta_pct_vs_pb": 11.4
         },
         {
           "date": "2025-02-08",
@@ -166,7 +166,7 @@ window.SWIM_DATA = {
             42.35,
             48.96
           ],
-          "delta_pct_vs_pb": 3.69
+          "delta_pct_vs_pb": 11.07
         },
         {
           "date": "2025-02-08",
@@ -176,7 +176,7 @@ window.SWIM_DATA = {
             43.21,
             49.0
           ],
-          "delta_pct_vs_pb": 4.71
+          "delta_pct_vs_pb": 12.16
         },
         {
           "date": "2025-03-29",
@@ -186,7 +186,7 @@ window.SWIM_DATA = {
             41.21,
             48.81
           ],
-          "delta_pct_vs_pb": 2.23
+          "delta_pct_vs_pb": 9.5
         },
         {
           "date": "2025-10-25",
@@ -196,7 +196,7 @@ window.SWIM_DATA = {
             41.6,
             46.46
           ],
-          "delta_pct_vs_pb": 0.0
+          "delta_pct_vs_pb": 7.12
         },
         {
           "date": "2026-02-28",
@@ -206,7 +206,17 @@ window.SWIM_DATA = {
             43.04,
             47.1
           ],
-          "delta_pct_vs_pb": 2.36
+          "delta_pct_vs_pb": 9.65
+        },
+        {
+          "date": "2026-04-30",
+          "time_s": 82.21,
+          "competition_id": "2026-04-30_naval_funchal",
+          "splits_s": [
+            37.86,
+            44.35
+          ],
+          "delta_pct_vs_pb": 0.0
         }
       ],
       "200": [
@@ -332,7 +342,7 @@ window.SWIM_DATA = {
             57.19,
             63.24
           ],
-          "delta_pct_vs_pb": 14.4
+          "delta_pct_vs_pb": 16.92
         },
         {
           "date": "2024-03-23",
@@ -342,7 +352,7 @@ window.SWIM_DATA = {
             54.2,
             63.79
           ],
-          "delta_pct_vs_pb": 12.08
+          "delta_pct_vs_pb": 14.55
         },
         {
           "date": "2024-10-19",
@@ -352,7 +362,7 @@ window.SWIM_DATA = {
             55.31,
             60.19
           ],
-          "delta_pct_vs_pb": 9.72
+          "delta_pct_vs_pb": 12.14
         },
         {
           "date": "2025-03-15",
@@ -362,7 +372,7 @@ window.SWIM_DATA = {
             50.01,
             58.04
           ],
-          "delta_pct_vs_pb": 2.64
+          "delta_pct_vs_pb": 4.9
         },
         {
           "date": "2025-03-29",
@@ -372,7 +382,7 @@ window.SWIM_DATA = {
             46.75,
             58.52
           ],
-          "delta_pct_vs_pb": 0.0
+          "delta_pct_vs_pb": 2.2
         },
         {
           "date": "2025-06-07",
@@ -384,7 +394,7 @@ window.SWIM_DATA = {
             64.64,
             74.04
           ],
-          "delta_pct_vs_pb": 31.74
+          "delta_pct_vs_pb": 34.64
         },
         {
           "date": "2025-10-25",
@@ -394,7 +404,7 @@ window.SWIM_DATA = {
             51.52,
             60.82
           ],
-          "delta_pct_vs_pb": 6.72
+          "delta_pct_vs_pb": 9.07
         },
         {
           "date": "2025-12-13",
@@ -404,7 +414,17 @@ window.SWIM_DATA = {
             50.27,
             58.15
           ],
-          "delta_pct_vs_pb": 2.99
+          "delta_pct_vs_pb": 5.26
+        },
+        {
+          "date": "2026-04-30",
+          "time_s": 103.0,
+          "competition_id": "2026-04-30_naval_funchal",
+          "splits_s": [
+            47.71,
+            55.29
+          ],
+          "delta_pct_vs_pb": 0.0
         }
       ],
       "200": [
@@ -635,6 +655,17 @@ window.SWIM_DATA = {
           ],
           "decel_pct": 9.43,
           "speed_reserve_pct": 112.49
+        },
+        {
+          "date": "2026-04-30",
+          "competition_id": "2026-04-30_naval_funchal",
+          "time_s": 82.21,
+          "splits_s": [
+            37.86,
+            44.35
+          ],
+          "decel_pct": 17.14,
+          "speed_reserve_pct": 98.95
         }
       ],
       "200": [
@@ -656,7 +687,7 @@ window.SWIM_DATA = {
             50.69
           ],
           "estimated": true,
-          "speed_reserve_pct": 118.64
+          "speed_reserve_pct": 127.08
         },
         {
           "date": "2024-03-23",
@@ -675,7 +706,7 @@ window.SWIM_DATA = {
             54.03,
             48.7
           ],
-          "speed_reserve_pct": 112.59
+          "speed_reserve_pct": 120.61
         },
         {
           "date": "2025-02-08",
@@ -694,7 +725,7 @@ window.SWIM_DATA = {
             50.13,
             49.14
           ],
-          "speed_reserve_pct": 103.69
+          "speed_reserve_pct": 111.07
         },
         {
           "date": "2025-03-15",
@@ -713,7 +744,7 @@ window.SWIM_DATA = {
             50.86,
             45.23
           ],
-          "speed_reserve_pct": 105.66
+          "speed_reserve_pct": 113.17
         },
         {
           "date": "2025-12-13",
@@ -732,7 +763,7 @@ window.SWIM_DATA = {
             51.56,
             46.15
           ],
-          "speed_reserve_pct": 102.36
+          "speed_reserve_pct": 109.65
         },
         {
           "date": "2026-03-14",
@@ -751,7 +782,7 @@ window.SWIM_DATA = {
             49.4,
             43.67
           ],
-          "speed_reserve_pct": 101.04
+          "speed_reserve_pct": 108.24
         }
       ],
       "400": [
@@ -849,6 +880,16 @@ window.SWIM_DATA = {
             58.15
           ],
           "decel_pct": 15.68
+        },
+        {
+          "date": "2026-04-30",
+          "competition_id": "2026-04-30_naval_funchal",
+          "time_s": 103.0,
+          "splits_s": [
+            47.71,
+            55.29
+          ],
+          "decel_pct": 15.89
         }
       ],
       "200": [
@@ -869,7 +910,7 @@ window.SWIM_DATA = {
             73.61,
             47.65
           ],
-          "speed_reserve_pct": 104.6
+          "speed_reserve_pct": 106.9
         },
         {
           "date": "2026-02-28",
@@ -888,7 +929,7 @@ window.SWIM_DATA = {
             73.04,
             49.38
           ],
-          "speed_reserve_pct": 102.97
+          "speed_reserve_pct": 105.24
         }
       ]
     },

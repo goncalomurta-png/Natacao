@@ -6,3 +6,6 @@ data/derived/
 
 # Logs de auditoria SecurityBench
 sb_audit_*.log
+
+# Entradas processadas (arquivo local)
+data/pending/done/
