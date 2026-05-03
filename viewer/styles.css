@@ -271,3 +271,25 @@ body {
   padding: 12px 0;
   font-size: 13px;
 }
+
+/* ── Botão inserir resultados ──────────────────────────────────────────── */
+
+.btn-ingest {
+  display: inline-block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--gold, #d4a017);
+  border: 1px solid var(--gold, #d4a017);
+  border-radius: 4px;
+  padding: 3px 10px;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.btn-ingest:hover {
+  background: var(--gold, #d4a017);
+  color: #2c2c2c;
+}
