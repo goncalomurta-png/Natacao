@@ -4,6 +4,8 @@
   var D = window.SWIM_DATA;
   var TODAY = new Date('2026-05-02');
 
+  var H = window.HOJE_DATA || null;
+
   var DISC_LABEL = {
     livre: 'Livre', costas: 'Costas', 'bruços': 'Bruços',
     mariposa: 'Mariposa', estilos: 'Estilos'
@@ -266,6 +268,78 @@
     '</div>';
   }
 
+  /* ── Hoje — URL builder ────────────────────────────────────────────── */
+
+  var DISC_SLUG = { 'bruços': 'brucos', livre: 'livre', costas: 'costas', mariposa: 'mariposa', estilos: 'estilos' };
+
+  function buildIngestUrl(p) {
+    if (!H) return 'ingest.html';
+    var params = new URLSearchParams({
+      date:  H.data,
+      name:  H.competicao,
+      local: H.local,
+      disc:  DISC_SLUG[p.estilo] || p.estilo,
+      dist:  String(p.distancia)
+    });
+    return 'ingest.html?' + params.toString();
+  }
+
+  /* ── Hoje section ──────────────────────────────────────────────────── */
+
+  function renderHoje() {
+    if (!H) return '<p class="empty">Sem competição activa.</p>';
+
+    var dateParts = H.data.split('-');
+    var dataFmt = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+
+    var header = '<div class="athlete-card">' +
+      '<div class="athlete-name">' + esc(H.competicao) + '</div>' +
+      '<div class="athlete-meta">' + esc(H.local) + ' · ' + dataFmt + '</div>' +
+    '</div>';
+
+    var cards = H.provas.map(function (p) {
+      var estiloLabel = DISC_LABEL[p.estilo] || p.estilo;
+      var pb = D.pbs && D.pbs[p.estilo] && D.pbs[p.estilo][String(p.distancia)];
+      var pbTime = pb ? pb.time_s : null;
+
+      var deltaHtml = '';
+      if (pbTime != null) {
+        var d = ((p.entrada_s - pbTime) / pbTime) * 100;
+        var sign = d > 0 ? '+' : '';
+        var cls = d > 0 ? 'danger' : 'success';
+        var arrow = d > 0 ? '▲' : '▼';
+        deltaHtml = '<div class="hoje-delta"><span class="delta ' + cls + '">' +
+          sign + d.toFixed(1) + '% ' + arrow + ' vs PB</span></div>';
+      }
+
+      var pbLine = pbTime != null
+        ? '<div class="hoje-pb">PB: <strong>' + formatTime(pbTime) + '</strong></div>'
+        : '';
+
+      return '<div class="hoje-card">' +
+        '<div class="hoje-card-top">' +
+          '<span class="hoje-num">P' + p.numero + '</span>' +
+          '<span class="hoje-estilo">' + p.distancia + 'm ' + estiloLabel + '</span>' +
+          '<span class="hoje-hora">' + p.hora + '</span>' +
+        '</div>' +
+        '<div class="hoje-card-body">' +
+          '<div class="hoje-serie">Série ' + p.serie + '/' + p.total_series +
+            ' · Raia ' + p.raia + '</div>' +
+          '<div class="hoje-entrada">Entrada: <strong>' + formatTime(p.entrada_s) + '</strong></div>' +
+          pbLine +
+          deltaHtml +
+        '</div>' +
+        '<a href="' + buildIngestUrl(p) + '" class="hoje-btn">+ Registar resultado</a>' +
+      '</div>';
+    }).join('');
+
+    return '<div>' +
+      header +
+      '<p class="sub-title">Provas de hoje</p>' +
+      '<div class="hoje-grid">' + cards + '</div>' +
+    '</div>';
+  }
+
   /* ── Geral section ─────────────────────────────────────────────────── */
 
   function renderGeral() {
@@ -339,7 +413,9 @@
   function renderTab(tabId) {
     var el = document.getElementById('tab-' + tabId);
     if (!el) return;
-    if (tabId === 'geral') {
+    if (tabId === 'hoje') {
+      el.innerHTML = renderHoje();
+    } else if (tabId === 'geral') {
       el.innerHTML = renderGeral();
     } else {
       var disc = TAB_TO_DISC[tabId];

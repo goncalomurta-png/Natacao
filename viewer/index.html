@@ -13,6 +13,7 @@
   <nav id="top-nav">
     <div class="nav-inner">
       <div class="tabs">
+        <button class="tab" data-tab="hoje">Hoje</button>
         <button class="tab active" data-tab="geral">Geral</button>
         <button class="tab" data-tab="livre">Livre</button>
         <button class="tab" data-tab="costas">Costas</button>
@@ -29,6 +30,7 @@
   </nav>
 
   <main id="main">
+    <section id="tab-hoje"    class="tab-content"></section>
     <section id="tab-geral"    class="tab-content active"></section>
     <section id="tab-livre"    class="tab-content"></section>
     <section id="tab-costas"   class="tab-content"></section>
@@ -38,6 +40,7 @@
   </main>
 
   <script src="data.js"></script>
+  <script src="hoje.js"></script>
   <script src="charts.js"></script>
 </body>
 </html>

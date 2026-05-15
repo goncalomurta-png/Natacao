@@ -604,6 +604,27 @@ function saveFile() {
 
 // Inicia com um evento
 addEvent();
+
+// Pré-preenchimento via query string (vindo do separador Hoje)
+(function () {
+  var p = new URLSearchParams(location.search);
+  if (!p.has('name') && !p.has('date')) return;
+
+  if (p.get('date'))  document.getElementById('comp-date').value     = p.get('date');
+  if (p.get('name'))  document.getElementById('comp-name').value     = p.get('name');
+  if (p.get('local')) document.getElementById('comp-location').value = p.get('local');
+
+  var disc = p.get('disc');
+  var dist = p.get('dist');
+  if (disc) {
+    var discSel = document.getElementById('disc-1');
+    if (discSel) discSel.value = disc;
+  }
+  if (dist) {
+    var distSel = document.getElementById('dist-1');
+    if (distSel) { distSel.value = dist; updateSplits(1); }
+  }
+})();
 </script>
 </body>
 </html>
